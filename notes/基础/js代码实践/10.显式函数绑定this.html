@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //普通情况
+    var person = {
+        firstName:"Bill",
+        lastName: "Gates",
+        fullName: function () {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    person.fullName();		// 将返回 "Bill Gates"
+    //bind----------------------------------------------
+        //bind返回一个新的函数
+    var person = {
+        firstName:"Steve",
+        lastName: "Jobs",
+        fullName: function() {
+            console.log(this.firstName + " " + this.lastName);
+        }
+    }
+    var person1 = {
+        firstName:"Bill",
+        lastName: "Gates",
+    }
+    var fn = person.fullName.bind(person1);
+    fn()// 将返回 "Bill Gates"
+    //call------------------------------------------
+    var person1 = {
+        firstName:"Steve",
+        lastName: "Jobs",
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    var person2 = {
+        firstName:"Bill",
+        lastName: "Gates",
+    }
+    console.log(person1.fullName.call(person2));  // 会返回 "Bill Gates"
+    //带参---------------------
+    var person = {
+        fullName: function(city, country) {
+            return this.firstName + " " + this.lastName + "," + city + "," + country;
+        }
+    }
+    var person1 = {
+        firstName:"Bill",
+        lastName: "Gates"
+    }
+    console.log(person.fullName.call(person1, "Seattle", "USA"));//Bill Gates,Seattle,USA
+    //apply------------------------------------------------
+    var person = {
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    var person1 = {
+        firstName: "Bill",
+        lastName: "Gates",
+    }
+    console.log(person.fullName.apply(person1));  // 将返回 "Bill Gates"
+    //apply() 方法接受数组形式的参数。
+    var person = {
+        fullName: function(city, country) {
+            return this.firstName + " " + this.lastName + "," + city + "," + country;
+        }
+    }
+    var person1 = {
+        firstName:"John",
+        lastName: "Doe"
+    }
+    console.log(person.fullName.apply(person1, ["Oslo", "Norway"]));//John Doe,Oslo,Norway
+    //用apply模拟数组的max方法
+    Math.max(1,2,3);  // 会返回 3
+    var arr = [1,2,3]
+    var max = Math.max.apply(null, arr); // 也会返回 3
+    console.log(max)//3
+
+
+    //实现手写call函数
+    Function.prototype._call = function(target = window,...arg) {
+        target.fn = this//把这个函数挂载到target上作为方法fn，这样this指向就是target
+        const result = target.fn(...arg)
+        delete target.fn//防止污染target
+        return result
+    }
+
+    //实现手写apply函数
+    Function.prototype._apply = function (target,arr){
+        target.fn = this
+        const res = target.fn(arr)
+        delete target.fn
+        return  res
+    }
+
+
+    //this
+    var obj = {
+        name:"zs",
+        fn:function(){
+            var name = 1
+            console.log(this.name)//zs
+        }
+    }
+    obj.fn()
+</script>
+</body>
+</html>

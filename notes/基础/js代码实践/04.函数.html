@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var x = myFunction(7, 8);// 调用函数，返回值被赋值给 x
+    //声明式
+    function myFunction(a, b) {
+        return a * b; // 函数返回 a 和 b 的乘积
+    }
+    console.log(x)//56
+    console.log(myFunction(1,2))//2
+    //赋值表达式
+    var x = function fn(a,b){
+        return a+b
+    }
+    console.log(x(1,2))//3
+
+    var y = function(a,b){
+        return a-b
+    }
+    console.log(y(1,2))//-1
+    //箭头函数
+    var z = a => a/3
+    console.log(z(9))//3
+
+    const f = (x, y) => { return x * y };
+//------arguments------------------------------------------------------
+    //arguments作用：模拟参数重载，查看参数个数
+    function sayHi(arr){
+        console.log(arr)//默认第一个
+        console.log(arguments[2])//无需明确参数名就可以使用
+    }
+    sayHi(1,2,3);
+//------Function-------------------------------------------------
+    var doAdd = new Function("iNum", "alert(iNum + 20)");
+    var doAdd = new Function("iNum", "alert(iNum + 10)");
+    doAdd(10);
+//-------闭包-----------------------------------------------------
+    var iBaseNum = 10;
+    function addNum(iNum1, iNum2) {
+        var iNum3= 1
+        function doAdd() {
+            return iNum1 + iNum2 + iBaseNum +iNum3;
+        }
+        return doAdd();
+    }
+    console.log(addNum(1,2))
+
+//---------函数构造器------------------------
+    //以属性形式访问 fullName：person.fullName。
+    //使用 getter 和 setter 时，JavaScript 可以确保更好的数据质量。
+    var person = {
+        firstName: "Bill",
+        lastName : "Gates",
+        get fullName() {
+            return this.firstName + " " + this.lastName;
+        }
+    };
+</script>
+</body>
+</html>

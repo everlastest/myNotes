@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let x = 1
+    function fn(a,b){
+        let x =2
+        console.log(this,this.x,x,a,b)
+    }
+    let obj = {x:3}
+
+    //正常情况
+    console.log("正常情况")
+    fn("a","b")//this指向window   this.x=undefined    x=2     a="a"       b="b"
+    //使用call
+    console.log("call方法")
+    fn.call(obj,'call-a','call-b')//this指向obj   this.x=3    x=2     a="call-a"      b="call-b"
+    fn.call(obj,'call-a')//this指向obj   this.x=3    x=2     a="call-a"      b="call-b"
+    //使用apply
+    console.log("apply方法")
+    fn.apply(obj,['apply-a','apply-b'])// this指向obj this.x=3   x=2   a='apply-a'   b='apply-b'
+    fn.apply(obj,['apply-a'])// this指向obj this.x=3   x=2   a='apply-a'   b=undefined
+    //使用bind
+    obj1 = {x:3}
+    console.log("bind方法")
+    console.log(typeof fn.bind())//function
+    fn1 = fn.bind(obj1,"bind-a","bind-b")
+    fn1()//this指向obj1    this.x=3   x=2   a='bind-a'    b='bind-b'
+    obj1.x=4
+    fn1()//this指向obj1    this.x=4   x=2   a='bind-a'    b='bind-b'
+    //===========================================================
+
+
+
+    //手写call方法
+    Object.prototype._call = function (target,...arg){
+        let _this = this    // this指向当前的一个方法，比如上面的fn
+        target.fn = _this   // 将方法挂载到target上
+        const fn1 = target.fn(...arg)
+        delete target.fn    //清除fn，防止变量污染
+        return fn1
+    }
+    //测试
+    fn._call(obj,"_call-a","_call-b")//this指向obj  this.x=3  x=2     a='_call-a'     b='_call-b'
+
+    //手写apply方法
+    Object.prototype._apply = function (target,[...arg]){
+        let _this = this    // this指向当前的一个方法，比如上面的fn
+        target.fn = _this   // 将方法挂载到target上
+        const fn1 = target.fn(...arg)
+        delete target.fn    //清除fn，防止变量污染
+        return fn1
+    }
+    //测试
+    fn._apply(obj,["_apply-a","_apply-b"])//this指向obj  this.x=3  x=2     a='_apply-a'     b='_apply-b'
+
+    console.log('手写bind')
+    //手写bind方法
+    Object.prototype._bind = function (target,...arg){
+        let _this = this//这里要利用闭包的性质
+
+        return function(){
+            target.fn = _this
+            const fn1 = target.fn(...arg)
+            delete target.fn
+            return fn1
+        }
+    }
+    // 测试
+    obj2 = {x:3}
+    fn2 = fn._bind(obj2,"_bind-a","_bind-b");
+    fn2()// {x: 3, fn: ƒ} 3 2 '_bind-a' '_bind-b'
+    obj2.x = 5
+    fn2()// {x: 5, fn: ƒ} 5 2 '_bind-a' '_bind-b'
+</script>
+</body>
+</html>

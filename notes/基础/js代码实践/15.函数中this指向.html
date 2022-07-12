@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //四种this指向
+    //1. 全局环境下调用this（全局对象）
+    //2. 函数作为对象方法被调用（指向该对象）
+    //3. 通过call、apply和bind方法显式指定this
+    //4. 作为构造函数调用（指向创建的对象实例）
+
+
+    //方法调用模式
+    console.log('方法调用模式')
+    let obj = {
+        value:0,
+        myFn : function (){
+            console.log(this)// 指向obj
+        }
+    }
+    obj.myFn()
+
+
+    //函数调用模式
+    console.log('函数调用模式')
+    function Fn(){
+        let val = 1
+        console.log(this)// 指向window
+    }
+    Fn()
+
+    //函数调用嵌套在方法中呢？
+    console.log('函数调用嵌套在方法')
+    let obj1 = {
+        value:0,
+        myFn : function (){
+            console.log(this)// 指向obj1
+            let Fn1 = function(){
+                console.log(this)// 指向Window
+            }
+            Fn1()
+        }
+    }
+    obj1.myFn()
+
+    //构造函数调用模式
+    console.log('构造器调用模式')
+    function Creator(name,age){
+        this.name = name
+        this.age = age
+        console.log(this)//this指向Creator{name: '刘思远', age: 18}
+    }
+    let Liu = new Creator("刘思远",18)
+
+    //箭头函数中this指向
+    console.log('箭头函数')
+    let fn3 = (val)=>{
+        console.log(this)// window
+    }
+    fn3(3)
+</script>
+</body>
+</html>

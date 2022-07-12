@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log('对各种值判断')
+    let x;
+    console.log(x)//undefined
+    let y =1;
+    console.log(y)//1
+    let z ="hello"
+    console.log(z)
+    x = 'world'
+    console.log(x)
+    let plus = z+' '+x
+    console.log(plus)//'hello world'
+    console.log(y*x)//NaN
+
+    //字符串和数字相加
+    console.log('字符串和数字相加')
+    console.log('8'+3)//83
+    console.log(3+3+'7')//67
+    console.log(3+'7'+3)//373
+    console.log('7'+3+3)//733
+//---------作用域let const----------------------------------------
+    console.log("作用域部分")
+    //全局作用域和函数作用域
+    var car = "car"//全局
+    let bike = "bike"//全局
+    function myFn(){
+        var moto = "moto"//函数作用域
+        console.log(car)//"car"
+        console.log(bike)//"bike"
+    }
+    myFn()//"car" "bike"
+    //console.log(moto)报错
+
+    //---块作用域---let-----------------------
+    console.log('块作用域')
+    {
+        var n = 1
+        let m = 2
+    }
+    console.log(n)//1
+    //console.log(m)//报错
+    var x = 10;
+    // 此处 x 为 10
+    {
+        var x = 6;
+        // 此处 x 为 6
+    }
+    console.log(x)// 此处 x 为 6
+
+    var i = 7;
+    for (var i = 0; i < 10; i++) {
+        // 一些语句
+    }
+    console.log(i)// 此处，i 为 10
+    let j = 7;
+    for (let j = 0; i < 10; i++) {
+        // 一些语句
+    }
+    console.log(i)// 此处 i 为 7
+
+    var q =1
+    //let q =2  不允许
+    var q =2//允许重新声明
+
+    let w = 1
+    //var w = 2 //不允许重新声明
+    //-------const----------------------------------------------
+    console.log('const部分')
+    const PI = 3.141592653589793;
+    //PI = 3.14;      // 会出错
+    //PI = PI + 10;   // 也会出错
+
+
+    var x = 101;
+    // 此处，x 为 10
+    {
+        const x = 6;
+        // 此处，x 为 6
+    }
+    console.log(x)// 此处，x 为 10
+
+
+    // 您可以创建 const 对象：
+    const car1 = {type:"porsche", model:"911", color:"Black"};
+    // 您可以更改属性：
+    car1.color = "White";
+    // 您可以添加属性：
+    car1.owner = "Bill";
+    console.log(car1)
+
+
+    // 您可以创建常量数组：
+    const cars = ["Audi", "BMW", "porsche"];
+    // 您可以更改元素：
+    cars[0] = "Honda";
+    // 您可以添加元素：
+    cars.push("Volvo");
+    console.log(cars)
+
+    //探索var和let是否会成为window的属性
+    console.log('window属性')
+    var arg1 = 2
+    let arg2 = 3
+    const arg3 = 4
+    console.log(window.arg1)//2
+    console.log(window.arg2)//undefined
+    console.log(window.arg3)//undefined
+</script>
+</body>
+</html>

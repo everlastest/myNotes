@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let arr = []
+    arr[1] = 2
+    arr[5] = 's'
+    console.log(arr)//[empty, 2, empty × 3, 's']
+    console.log(arr[3])//undefined
+
+    //-----------join-------------------------------
+    var str = arr.join("")
+    console.log(str)//2s
+    //----------concat------------------------------
+    var arr1 = [1,2,3]
+    var arr2 = [4,5,6]
+    var arr3 = arr1+arr2
+    console.log(arr3)//1,2,34,5,6
+    var arr4 = arr1.concat(arr2)
+    console.log(arr1)//不修改原数组
+    console.log(arr4)//[1, 2, 3, 4, 5, 6]
+    //----------slice--------------------------------
+    var arr5 = arr4.slice(0,2)
+    var arr6 = arr4.slice(-3)
+    console.log("arr5",arr5)//[1,2]
+    console.log("arr6",arr6)//[4,5,6]
+    //删除
+    arr4.splice(3,2)
+    console.log(arr4)//删除第3个元素开始的后面的2个
+    //插入
+    var arr7 = [1,2,3,4,5,6]
+    arr7.splice(3,1,1,2)
+    console.log(arr7)//先删除第三个元素，在插入1，2[1,2,3,1,2,5,6]
+    //-----------reverse-----------------------------
+    var arr8 = [1,2,3]
+    arr8.reverse()
+    console.log(arr8)//[3,2,1]
+    //-----------sort--------------------------------
+    var arr9 = [1,4,5,3,6,2]
+    var arr10 = [1,4,5,3,6,2]
+    arr9.sort()//默认升序
+    arr10.sort((a,b)=>b-a)
+    console.log(arr9)
+    console.log(arr10)
+    //-------------indexOf---------------------------
+    var arr11 = [1,4,5,2,3,6,2]
+    console.log(arr11.indexOf(2))//3
+    console.log(arr11.indexOf(11))//-1
+    console.log(arr11.indexOf(2,5))//6 从5号元素开始向后找
+    console.log(arr11.lastIndexOf(2))//6 从后往前找
+    //-------------forEach----------------------------
+    var arr11 = [1,4,5,2,3,6,2]
+    arr11.forEach(function (item,index,array){
+        array[index] +=item
+    })
+    console.log(arr11)//翻倍
+    //-------------map--------------------------------
+    var arr11 = [1,4,5,2,3,6,2]
+    var newArr = arr11.map(function (item,index,array){
+        return item*3
+    })
+    console.log(newArr)//[3, 12, 15, 6, 9, 18, 6]
+    //-------------every----------------------------
+    var arr11=[1,2,3,4,5,-1,2]
+    var isEvery = arr11.every(function(item,index,array){
+        return item>0
+    })
+    console.log(isEvery)//false
+    //-------------some----------------------------------
+    var arr11=[1,2,3,4,5,-1,2]
+    var isSome = arr11.some(function(item,index,array){
+        return item>0
+    })
+    console.log(isSome)//true
+    //--------------filter-------------------------------
+    var arr11 = [1,-1,2,-2,3,-4]
+    var minus = arr11.filter(function(item,index,array){
+        return item >0
+    })
+    console.log(minus)//[1,2,3]
+    //-----------------传两个参数可以改变this指向-------------
+
+    // 只传一个匿名函数
+    arr.forEach(function(item,index,array){
+        console.log(this);  // window
+    });
+    // 传两个参数
+    arr11.forEach(function(item,index,array){
+        console.log(this);  // [1, -2, 3, 4, -5]
+    },arr11);//this指向第二个参数
+    //----------------unshift--------------------------
+    var arr12 = [2,3,4]
+    arr12.unshift(1)
+    console.log(arr12)//在头部插入[1,2,3,4]
+    //---------------shift-------------------------------
+    var arr12 = [2,3,4]
+    arr12.shift()
+    console.log(arr12)//在头部出[3,4]
+    //----------------push-------------------------------
+    var arr12 = [2,3,4]
+    arr12.push(1)
+    console.log(arr12)//在尾部插入[2,3,4,1]
+    //----------------pop---------------------------------
+    var arr12 = [2,3,4]
+    arr12.pop()
+    console.log(arr12)//在尾部出[2,3]
+    //----------------reduce----------------------------
+
+    let a = [1,2,3,4].reduce(function(x, y) {
+        return x + y;
+    });
+    console.log(a)//10
+</script>
+</body>
+</html>

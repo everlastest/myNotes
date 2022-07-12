@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .d1 {
+            position: relative;
+            display: flex;
+            height: 300px;
+            line-height: 300px;
+            background-color: brown;
+            text-align: center;
+        }
+
+        .title {
+            position: relative;
+            height: 30px;
+            background: linear-gradient(to right, #bbd2c5, #536976);
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-family: 黑体;
+            color: #efece9;
+        }
+
+        .box {
+            position: relative;
+        }
+
+        p3 {
+            position: absolute;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: #efece9;
+        }
+
+        input {
+
+            height: 30px;
+            border-radius: 16px;
+            width: 100px;
+            border-color: #7ccbcb;
+            border-width: 3px;
+            font-size: 16px;
+            font-family: "Times New Roman";
+            color: #10b4e5;
+        }
+
+        input:focus {
+            border-color: #1fdcdc;
+            outline: none;
+
+        }
+
+        button {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: gold;
+        }
+        p4{
+            position: absolute;
+            top:50%;
+            line-height: 0;
+            margin-left: -10%;
+
+        }
+    </style>
+</head>
+<body>
+<div class="title">防抖测试</div>
+<div class="d1">
+    <div class="box" style="flex: 1;background-color: #BBD2C5">
+        <p3>无防抖</p3>
+        <input id="put1" type="text">
+    </div>
+    <div class="box" style="flex: 1;background-color: #536976">
+        <p3>有防抖</p3>
+        <input id="put2" type="text">
+    </div>
+</div>
+
+
+<div class="title">节流测试</div>
+<div class="d1" style="line-height: 150px">
+    <div class="box" style="flex: 1;background-color: #BBD2C5">
+        <p3>无节流</p3>
+        <button onclick="attack1()">攻击</button>
+        <br>
+        <p4></p4>
+    </div>
+    <div class="box" style="flex: 1;background-color: #536976">
+        <p3>有节流</p3>
+
+        <button onclick="a()">攻击</button>
+        <br>
+        <p4></p4>
+    </div>
+</div>
+
+<script>
+    //防抖--------------------------------------
+
+    //没有
+    //let input1 = document.querySelector("#put1");
+    // input1.onkeyup = function () {
+    //     alert("发送请求")
+    // }
+
+    //有
+    let input2 = document.querySelector("#put2");
+    let timer1 = null
+    input2.onkeyup = function () {
+        clearTimeout(timer1)
+        timer1 = setTimeout(function () {
+            alert("发送请求")
+        }, 1000)
+    }
+
+    //封装防抖函数
+    function debounce(callback, time = 300){
+        let timer = null
+        return function (){
+            clearTimeout(timer)
+            timer = setTimeout(callback,time)
+        }
+    }
+    //测试
+    let input1 = document.querySelector("#put1");
+    function sendMsg(){
+        alert("发送成功")
+    }
+    let s = debounce(sendMsg,500)
+    input1.onkeyup = s
+    //节流--------------------------------------
+    //无节流
+    let times1 = 0
+    function attack1() {
+        times1++;
+        document.getElementsByTagName("p4")[0].innerHTML = "发起第"+times1+"次攻击"
+        setTimeout(function () {
+            document.getElementsByTagName("p4")[0].innerHTML = "完成攻击"
+        }, 3000)
+    }
+
+    //有节流
+    let times2 = 0
+    let timer2 = null
+    function attack2() {
+        if (timer2) return
+        times2++;
+        document.getElementsByTagName("p4")[1].innerHTML = "发起第"+times2+"次攻击"
+        timer2 = setTimeout(function () {
+            document.getElementsByTagName("p4")[1].innerHTML = "完成攻击"
+            timer2 = null
+        }, 3000)
+    }
+
+    //封装节流函数
+    function throttle(callback, time = 300) {
+        let timer = null
+        return function (...args) {
+            if (!timer) {
+                callback.apply(this, args)
+                timer = setTimeout(() => {
+                    timer = null
+                }, time)
+            }
+        }
+    }
+
+    function attack3(){
+        document.getElementsByTagName("p4")[1].innerHTML = "发起第"+ ++times2 +"次攻击"
+    }
+
+    let a = throttle(attack3,1000)
+</script>
+</body>
+</html>

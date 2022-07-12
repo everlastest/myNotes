@@ -1,0 +1,80 @@
+```js
+    //1 - 创建了一个空的js对象（即{}）
+    //2 - 将空对象的原型prototype指向构造函数的原型
+    //3 - 将空对象作为构造函数的上下文（改变this指向）
+    //4 - 对构造函数有返回值的判断
+    //5 - 如果返回值是基础数据类型，则忽略返回值
+    //6 - 如果返回值是引用数据类型，则使用return 的返回，也就是new操作符无效
+    function Creator(name){}
+    let obj = new Creator()
+    //判断1
+    //1 - 创建了一个空的js对象（即{}）
+    console.log('判断1')
+    console.log(obj)
+    //  Creator
+    //      [[Prototype]]: Object
+    //          constructor: ƒ Creator()
+    //          [[Prototype]]: Object
+
+    //判断2
+    //2 - 将空对象的原型prototype指向构造函数的原型
+    console.log('判断2')
+    console.log(obj.__proto__===Creator.prototype)//true
+    console.log(Creator.prototype)
+    //  {constructor: ƒ}
+    //      constructor: ƒ Creator()
+    //      [[Prototype]]: Object
+
+    //判断3
+    //3 - 将空对象作为构造函数的上下文（改变this指向）
+    console.log('判断3')
+    function Creator1(name){
+        this.name = name
+        console.log(this)// Creator1{name: 'prince'}
+    }
+    let obj1 = new Creator1("prince")
+
+    //判断5
+    //5 - 如果返回值是基础数据类型，则忽略返回值
+    console.log('判断5')
+    function Creator2(name){
+        this.name = name
+        return 2
+    }
+    let obj2 = new Creator2("prince")
+    console.log(obj2) // Creator2{name: 'prince'}
+
+    //判断6
+    //6 - 如果返回值是引用数据类型，则使用return 的返回，也就是new操作符无效
+    console.log('判断6')
+    function Creator3(name){
+        this.name = name
+        return {name:1}
+    }
+    let obj3 = new Creator3("prince")
+    console.log(obj3) // {name: 1}
+
+
+    //手撕new操作符
+    function myNew(){
+        // 1.创建一个新对象
+        let obj = {}
+        // 2.取出参数中的第一个作为参数，获得构造函数
+        let arr = Object.values(arguments)//arguments是一个对象，需要转化成数组
+        let constructor = arr.shift()
+        // 3.将新对象的的__proto__指向构造函数的原型
+        obj.__proto__ = constructor.prototype
+        // 4.绑定this指向，并且为新对象添加属性
+        let result = constructor.apply(obj,arr)
+        // 5.判断是否为对象，不是则返回空对象
+        return typeof result==="object"?result:obj;
+    }
+    //测试效果
+    function Person(name,age){
+        this.name = name
+        this.age = age
+    }
+    let person = myNew(Person,"prince",18)
+    console.log(person) //Person{name: 'prince', age: 18}
+```
+

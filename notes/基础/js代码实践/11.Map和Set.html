@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //map----------------------------------------------
+    /*
+     *  new Map()	创建新的 Map 对象。
+     *  set()	为 Map 对象中的键设置值。
+     *  get()	获取 Map 对象中键的值。
+     *  entries()	返回 Map 对象中键/值对的数组。
+     *  keys()	返回 Map 对象中键的数组。
+     *  values()	返回 Map 对象中值的数组。
+     *  size	获取 Map 对象中某键的值。
+     *  clear()	删除 Map 中的所有元素。
+     *  delete()	删除由键指定的元素。
+     *  has()	如果键存在，则返回 true。
+     *  forEach()	为每个键/值对调用回调。
+     */
+    // 创建对象
+    const apples = {name: 'Apples'};
+    const bananas = {name: 'Bananas'};
+    const oranges = {name: 'Oranges'};
+
+    // 创建新的 Map
+    const fruits = new Map();
+
+    // Add new Elements to the Map
+    fruits.set(apples, 500);
+    fruits.set(bananas, 300);
+    fruits.set(oranges, 200);
+
+    fruits.get(apples);    // 返回 500
+    fruits.get("apples");  // 返回 undefined
+    fruits.size;
+    fruits.delete(apples);
+    fruits.clear();
+    fruits.has(apples); //true
+
+
+    //set----------------------------------------------------
+    /*
+    *
+    * new Set()	创建新的 Set 对象。
+    * add()	向 Set 添加新元素。
+    * clear()	从 Set 中删除所有元素。
+    * delete()	删除由其值指定的元素。
+    * entries()	返回 Set 对象中值的数组。
+    * has()	如果值存在则返回 true。
+    * forEach()	为每个元素调用回调。
+    * keys()	返回 Set 对象中值的数组。
+    * values()	与 keys() 相同。
+    * size	返回元素计数。
+    *
+    */
+    // 创建新的变量
+    const a = "a";
+    const b = "b";
+    const c = "c";
+
+    // 创建 Set
+    const letters = new Set();
+
+    // Add the values to the Set
+    letters.add(a);
+    letters.add(b);
+    letters.add(c);
+    typeof letters;      // 返回 object。
+    letters instanceof Set;  // 返回 true
+
+</script>
+</body>
+</html>

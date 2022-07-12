@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var str = "hello WOrld"
+    console.log(str.charAt(4))//o
+    console.log(str.length)//11
+    console.log(str.charCodeAt(4))//111
+    console.log(str.codePointAt(4))
+    console.log(str.indexOf('llo'))//2
+    console.log(str.replace('l','x'))//'hexlo world'
+    console.log(str.replaceAll('l','x'))//'hexxo worxd'
+    console.log(str.substring(0,5))//'hello'
+    console.log(str.split(''))//['h', 'e', 'l', 'l', 'o', ' ', 'W', 'O', 'r', 'l', 'd']
+    console.log(str.split('l'))//['he', '', 'o WOr', 'd']
+    console.log(str.toLowerCase())//hello world
+    console.log(str.toUpperCase())//HELLO WORLD
+    var str1 = "  ni   hao   "
+    console.log(str1.trim())//"ni   hao"
+    console.log(str1.trimLeft())//"ni   hao  "
+</script>
+</body>
+</html>

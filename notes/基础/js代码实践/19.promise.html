@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    //基础=====================================================
+    let p1 = new Promise((resolve, reject) => {
+        resolve("成功")
+        reject("失败")
+    })
+    console.log("p1", p1)
+    // Promise {<fulfilled>: '成功'}
+    //     [[Prototype]]: Promise
+    //     [[PromiseState]]: "fulfilled"
+    //     [[PromiseResult]]: "成功"
+
+
+    let p2 = new Promise((resolve, reject) => {
+        reject("失败")
+        resolve("成功")
+    })
+    console.log("p2", p2)
+    // Promise {<rejected>: '失败'}
+    //     [[Prototype]]: Promise
+    //     [[PromiseState]]: "rejected"
+    //     [[PromiseResult]]: "失败"
+
+
+    //let p3 = new Promise((resolve,reject)=>{
+    //throw('报错')
+    //})
+    //console.log('p3',p3)
+    // Promise {<rejected>: '报错'}
+    //     [[Prototype]]: Promise
+    //     [[PromiseState]]: "rejected"
+    //     [[PromiseResult]]: "报错"
+
+    class NewPromise {
+        static pending = '待定';
+        static fulfilled = '成功';
+        static rejected = '拒绝';
+
+        constructor(func) {
+            this.status = NewPromise.pending;
+            this.result = null;
+            func(this.resolve.bind(this), this.reject.bind(this));
+        }
+
+        resolve(result) {
+            if (this.status === NewPromise.pending) {
+                this.status = NewPromise.fulfilled
+                this.result = result
+            }
+        }
+
+        reject(result) {
+            if (this.status === NewPromise.pending) {
+                this.status = NewPromise.rejected
+                this.result = result
+            }
+        }
+
+        then(onFulfilled, onRejected) {
+            if (this.status === NewPromise.rejected) {
+                onRejected(this.result)
+            }
+            if (this.status === NewPromise.fulfilled) {
+                onFulfilled(this.result)
+            }
+        }
+
+    }
+
+    let p = new NewPromise((resolve, reject) => {
+        resolve(console.log("你好"))
+    })
+    p.then(
+        result => {console.log(result)},
+        result => {console.log(result.message)}
+    )
+    //手写Promise
+    class MyPromise {
+        //构造方法
+        constructor(executor) {
+            //初始化值
+            this.initValue()
+            //初始化this指向
+            this.initBind()
+            //执行传进来的函数
+            try {
+                executor(this.resolve, this.reject)
+            } catch (e) {
+                this.reject(e)
+            }
+        }
+
+        initBind() {
+            //初始化this
+            this.resolve = this.resolve.bind(this)
+            this.reject = this.reject.bind(this)
+        }
+
+        initValue() {
+            //初始化值
+            this.PromiseResult = null   //终值
+            this.PromiseState = 'pending'   //状态
+            this.onFulfilledCallbacks = []  //保存成功回调
+            this.onRejectedCallbacks = []   //保存失败回调
+        }
+
+        resolve(value) {
+            if (this.PromiseState !== 'pending') return
+            this.PromiseState = 'fulfilled'
+            this.PromiseResult = value
+            //执行成功的回调
+            while (this.onFulfilledCallbacks.length) {
+                this.onFulfilledCallbacks.shift()(this.PromiseResult)
+            }
+        }
+
+        reject(reason) {
+            if (this.PromiseState !== 'pending') return
+            this.PromiseState = 'rejected'
+            this.PromiseResult = reason
+            while (this.onRejectedCallbacks.length) {
+                this.onRejectedCallbacks.shift()(this.PromiseResult)
+            }
+        }
+
+        then(onFulfilled, onRejected) {
+            //接收2个回调函数
+            // 参数校验，确保一定是函数
+            onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : val => val
+            onRejected = typeof onRejected === 'function' ? onRejected : reason => {
+                throw reason
+            }
+
+            let thenPromise = new MyPromise((resolve, reject) => {
+                const resolvePromise = cb => {
+                    try {
+                        const x = cb(this.thenPrmiseResult)
+                        if (x === thenPromise) {
+                            throw new Error('不能返回自身')
+                        }
+                        if (x instanceof MyPromise) {
+                            // 如果返回值是Promise
+                            // 如果返回值是promise对象，返回值为成功，新promise就是成功
+                            // 如果返回值是promise对象，返回值为失败，新promise就是失败
+                            // 谁知道返回的promise是失败成功？只有then知道
+                            x.then(resolve, reject)
+                        } else {
+                            // 非Promise就直接成功
+                            resolve(x)
+                        }
+                    } catch (err) {
+                        // 处理报错
+                        reject(err)
+                    }
+                }
+                if (this.PromiseState === 'fulfilled') {
+                    // 如果当前为成功状态，执行第一个回调
+                    onFulfilled(this.PromiseResult)
+                } else if (this.PromiseState === 'rejected') {
+                    // 如果当前为失败状态，执行第二哥回调
+                    onRejected(this.PromiseResult)
+                } else if (this.PromiseState === 'pending') {
+                    // 如果状态为待定状态，暂时保存两个回调
+                    this.onFulfilledCallbacks.push(onFulfilled.bind(this))
+                    this.onRejectedCallbacks.push(onRejected.bind(this))
+                }
+            })
+            return thenPromise
+        }
+    }
+
+    //测试
+    console.log('test')
+    const test = new MyPromise((resolve, reject) => {
+        setTimeout(() => {
+            reject('失败')
+        }, 1000)
+    }).then(res => console.log(res), err => console.log(err))
+
+
+    //.then=====================================================
+    // 马上输出 ”成功“
+    const pt1 = new Promise((resolve, reject) => {
+        resolve('成功')
+    }).then(res => console.log(res), err => console.log(err))
+
+    // 1秒后输出 ”失败“
+    const pt2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject('失败')
+        }, 1000)
+    }).then(res => console.log(res), err => console.log(err))
+
+    // 链式调用 输出 200
+    const pt3 = new Promise((resolve, reject) => {
+        resolve(100)
+    }).then(res => 2 * res, err => console.log(err))
+        .then(res => console.log(res), err => console.log(err))
+</script>
+</body>
+</html>

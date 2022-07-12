@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 普通函数
+    function Fn(){
+        console.log("普通")
+    }
+    Fn()
+    console.log(1)
+    // 立即执行函数(第一个括号里是一个匿名函数)
+    //需要在前面加一个let复制不然会报错
+    let imd = (function(val){console.log("立即执行",val)})(5)// 直接输出5
+    //另一种写法：(function(val){console.log("立即执行",val)}(5))// 直接输出5
+
+</script>
+</body>
+</html>

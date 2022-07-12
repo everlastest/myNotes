@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #grandfather,
+        #grandfather1{
+            position: relative;
+            height: 200px;
+            width: 200px;
+            background-color: gold;
+        }
+        #father,
+        #father1{
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            top: 50px;
+            left: 50px;
+            background-color: aquamarine;
+        }
+        #son,
+        #son1{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 25px;
+            left: 25px;
+            background-color: white;
+            text-align: center;
+            line-height: 50px;
+        }
+        li{
+            list-style: none;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="grandfather">
+    <div id="father">
+        <div id="son">冒泡</div>
+    </div>
+</div>
+<br>
+<div id="grandfather1">
+    <div id="father1">
+        <div id="son1">捕获</div>
+    </div>
+</div>
+<a href="https://www.baidu.com/">百度</a>
+<ul>
+    <li>你好</li>
+    <li>你好</li>
+    <li>你好</li>
+    <li>你好</li>
+    <li>你好</li>
+</ul>
+<script>
+    //事件冒泡
+    let grandfather = document.querySelector("#grandfather")
+    let father = document.querySelector("#father")
+    let son = document.querySelector("#son")
+    grandfather.addEventListener('click',(e)=>{
+        console.log(1)
+        console.log(e.target)
+    })
+    father.addEventListener('click',(e)=>{
+        console.log(2)
+        console.log(e.target)
+    })
+    son.addEventListener('click',(e)=>{
+        console.log(3)
+        console.log(e.target)
+        // e.stopPropagation()//阻止冒泡
+    })
+    //点击son,输出3，2，1，实锤事件冒泡
+    //e.target全部是son
+
+    //================================================
+    //事件捕获,设置addEventListener的第三个参数true
+    let grandfather1 = document.querySelector("#grandfather1")
+    let father1 = document.querySelector("#father1")
+    let son1 = document.querySelector("#son1")
+    grandfather1.addEventListener('click',(e)=>{
+        console.log(1)
+        console.log(e.target)
+    },true)
+    father1.addEventListener('click',(e)=>{
+        console.log(2)
+        console.log(e.target)
+    },true)
+    son1.addEventListener('click',(e)=>{
+        console.log(3)
+        console.log(e.target)
+    },true)
+    //点击son1,输出1,2,3，实锤事件捕获
+    //e.target全部是son
+
+    //事件对象
+    son1.addEventListener('mouseover',(e)=>{
+        console.log(4)
+        console.log(e)//MouseEvent{isTrusted: true, screenX: 565, screenY: 298, clientX: 82, clientY: 171,…}
+        console.log(e.stopPropagation)//ƒ stopPropagation() { [native code] }
+    },true)
+
+    //阻止默认行为
+    let a = document.querySelector("a");
+    console.log(a)
+    a.addEventListener('click',function(e){
+        e.preventDefault();//阻止超链接跳转
+    })
+
+    //事件委托
+    let ul = document.querySelector("ul");
+    ul.addEventListener('click',function(e){
+        for(let i=0;i<ul.children.length;i++)
+        {
+            ul.children[i].style.backgroundColor = '';
+        }
+        e.target.style.backgroundColor = 'pink';
+    })
+</script>
+</body>
+</html>

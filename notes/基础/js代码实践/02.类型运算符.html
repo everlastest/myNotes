@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //测试typeof
+    console.log("测试typeof")
+    var num = 1
+    var str = "hello"
+    var bool = true
+    var un
+    var n = null
+    var arr = []
+    var obj = {}
+
+    function fn() {
+    }
+    console.log(typeof num)//number
+    console.log(typeof str)//string
+    console.log(typeof bool)//boolean
+    console.log(typeof un)//undefined
+    console.log(typeof n)//object
+    console.log(typeof arr)//object
+    console.log(typeof obj)//object
+    console.log(typeof fn)//function
+    var person = undefined
+    console.log(typeof person)//undefined
+    console.log(null == undefined)//true
+    console.log(null === undefined)//false
+    //-------类型转化-----------------------------------------------------
+
+    //toString
+    console.log("测试toString")
+    var n1 = 10
+    var n2 = 10.0
+    console.log(n1.toString())//10
+    console.log(n2.toString())//10
+    console.log(n1.toString(2))//1010 2表示2进制
+    //parseInt
+    console.log("测试parseInt")
+    var n3 = "123"
+    var n4 = "1234red"
+    console.log(2 * parseInt(n3))//246
+    console.log(parseInt(n4))//1234
+    console.log(parseInt("r"))//NaN
+    console.log(parseInt('AF', 16))//175
+    //------constructor构造器--------------------------------------------------
+    console.log("测试constructor")
+    console.log("Bill".constructor)  // 返回 "function String()  { [native code] }"
+    console.log((3.14).constructor)  // 返回 "function Number()  { [native code] }"
+    console.log(false.constructor)   // 返回 "function Boolean() { [native code] }"
+    console.log([1, 2, 3, 4].constructor)// 返回 "function Array()   { [native code] }"
+    console.log({name: 'Bill', age: 62}.constructor) // 返回" function Object()  { [native code] }"
+    console.log(new Date().constructor)  // 返回 "function Date()    { [native code] }"
+    console.log(function () {}.constructor) // 返回 "function Function(){ [native code] }
+    function Star1(name,age){
+        this.name = name
+        this.age = age
+    }
+    var star2 = new Star("zs",15)
+    console.log(Star1.prototype.constructor===Star1)//true
+    //------instanceof原型链-------------------------------------------------------------------
+    console.log("测试instanceof")
+    var obj = {name:"zx" , age:18}
+    var obj2 = obj
+    var x = "1"
+    function Star(name,age){
+        this.name = name
+        this.age = age
+    }
+    var star1 = new Star("zs",15)
+    console.log(obj instanceof Object)//true
+    console.log(x instanceof String)//false
+    console.log(star1)//Star{name: 'zs', age: 15}
+    console.log(typeof star1)//Object
+    console.log(star1 instanceof Star)//true
+    console.log(star1 instanceof Object)//true
+    console.log(star1.__proto__)
+    console.log(Object.prototype.toString.call(star1))//Object
+
+    //手撕instanceof
+    function _instanceof(obj1,obj2){
+        let proto = obj1.__proto__
+        let prototype = obj2.prototype
+        while(true){
+            if(proto ===null)
+                return false;
+            if(prototype === proto)
+                return true
+            proto = proto.__proto__
+        }
+    }
+
+    console.log(_instanceof(obj,Object))//true
+    console.log(_instanceof(star1,Star))//true
+</script>
+
+
+</body>
+</html>

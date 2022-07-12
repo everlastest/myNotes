@@ -87,7 +87,7 @@ jQuery 中发起Ajax请求最常用的三个方法如下:
 
 XMLHttpRequest(简称xhr)是浏览器提供的Javascript对象，通过它，可以请求服务器上的数据资源。之前所学的jQuery中的Ajax函数，就是基于xhr 对象封装出来的。
 
-![image-20220314160718651](./assets/image-20220314160718651.png)
+![image-20220314160718651](./../assets//image-20220314160718651.png)
 
 #### xhr发起get请求
 
@@ -114,7 +114,7 @@ XMLHttpRequest(简称xhr)是浏览器提供的Javascript对象，通过它，可
 
   readyState属性：
 
-  ![image-20220314161358521](./assets/image-20220314161358521.png)
+  ![image-20220314161358521](./../assets//image-20220314161358521.png)
 
 #### **xhr发起post请求**
 
@@ -265,7 +265,7 @@ $documnet.on('mousemove',function(e){
 
 由请求方式、URL和HTTP协议版本3个部分组成，他们之间使用空格隔开
 
-![image-20220314190140655](./assets/image-20220314190140655.png)
+![image-20220314190140655](./../assets//image-20220314190140655.png)
 
 **请求头部**
 
@@ -276,7 +276,7 @@ $documnet.on('mousemove',function(e){
 - Accept用来描述客户端能够接收什么类型的返回内容;
 - Accept-Language用来描述客户端期望接收哪种人类语言的文本内容。
 
-![image-20220314190512334](./assets/image-20220314190512334.png)
+![image-20220314190512334](./../assets//image-20220314190512334.png)
 
 **空行**
 
@@ -284,7 +284,7 @@ $documnet.on('mousemove',function(e){
 
 请求消息中的空行。用来分隔请求头部与请求体。
 
-![image-20220314190949624](./assets/image-20220314190949624.png)
+![image-20220314190949624](./../assets//image-20220314190949624.png)
 
 **请求体**
 
@@ -296,11 +296,11 @@ $documnet.on('mousemove',function(e){
 
 HTTP响应信息由状态行，状态头部，和响应体4个部分组成
 
-![image-20220314191957822](./assets/image-20220314191957822.png)
+![image-20220314191957822](./../assets//image-20220314191957822.png)
 
 状态行由HTTP协议版本、状态码和状态码的描述文本3个部分组成，他们间使用空格隔开;
 
-![image-20220314192137846](./assets/image-20220314192137846.png)
+![image-20220314192137846](./../assets//image-20220314192137846.png)
 
 响应头部：描述服务器的基本信息
 
@@ -352,7 +352,7 @@ MIT
 - 是目前限制最少的协议，唯一的条件:在修改后的代码或者发行包中，必须包含原作者的许可信息
 - jquery、nodejs
 
-![image-20220314200009473](./assets/image-20220314200009473.png)
+![image-20220314200009473](./../assets//image-20220314200009473.png)
 
 生成SSH Key
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <button>按钮</button>
+</div>
+<script>
+    //window是顶级对象
+    //包括location，document等对象
+    //window.onload可以在全部加载完成后再加载
+    console.log(window)//Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+    console.log(window.document)//#documnet
+    console.log(window.history)//History{length: 1, scrollRestoration: 'auto', state: null}
+    console.log(window.location)
+    //Location{ancestorOrigins: DOMStringList,
+    //         href: 'http://localhost:63342/webApi/03.BOM.html?_ijt=asqj5ilckaps2qnfd5h5pfl6p2&_ij_reload=RELOAD_ON_SAVE',
+    //         origin: 'http://localhost:63342', protocol: 'http:', host: 'localhost:63342',…}
+    console.log(window.localStorage)//Storage{Hm_lvt_86aa1be6b8f0adbb6e53fa6cade2c6f1: '1675073901499|1643537901', length: 1}
+    console.log(window.setInterval)//ƒ setInterval() { [native code] }
+    console.log(window.navigator)//Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, userActivation: UserActivation,…}
+    console.log(window.sessionStorage)//Storage{length: 0}
+    console.log(window.document.cookie)//Hm_lvt_86aa1be6b8f0adbb6e53fa6cade2c6f1=1643537901
+    window.onload = function(){
+        let btn = document.querySelector("button");
+        btn.addEventListener('click',function(){
+            alert('nihao');
+        })
+    }
+    window.addEventListener('load',function(){
+        let btn = document.querySelector("button");
+        btn.addEventListener('click',function(){
+            alert('dianwo');
+        })
+    })
+</script>
+</body>
+</html>

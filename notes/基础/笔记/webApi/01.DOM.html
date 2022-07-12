@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="d1"></div>
+<div id="d2"></div>
+<div id="d3"></div>
+<div class="c1"></div>
+<div class="c1"></div>
+<span class="c2" id="i1"></span>
+<div id="box">
+    <div id="son"></div>
+</div>
+<button id="btn2">创建元素</button>
+<div class="inner"></div>
+<script>
+    console.log(document)//把整个文档打印出来
+    //获取元素
+    //TagName
+    console.log("tagName")
+    let divs = document.getElementsByTagName("div")
+    console.log(divs)//HTMLCollection(3)[div#d1, div#d2, div#d3, d1: div#d1, d2: div#d2, d3: div#d3]
+    console.log(divs[0])//<div id="d1"></div>
+    //className
+    console.log("className")
+    let classes = document.getElementsByClassName("c1")
+    console.log(classes)//HTMLCollection(2)[div.c1, div.c1]
+    //id
+    let div = document.getElementById("d1")
+    console.log(div)//<div id="d1"></div>
+    //querySelector 返回第一个
+    let span1 = document.querySelector("span")
+    let span2 = document.querySelector("#i1")
+    let span3 = document.querySelector(".c2")
+    console.log(span1,span2,span3)//<span class="c2" id="i1"></span>
+    //获取body和html元素
+    console.log('获取body和html元素')
+    let body=document.body;
+    let html=document.documentElement;
+    console.log(body)
+    console.log(html)
+    //修改节点
+    let parent = document.querySelector("#box")
+    console.log(parent.children)//HTMLCollection[div#son, son: div#son]
+    console.log(parent.childNodes)
+    // NodeList(3) [text, div#son, text]
+    // 0: text
+    // 1: div#son
+    // 2: text
+    // length: 3
+    //     [[Prototype]]: NodeList
+
+    //parent.appendChild(span1)
+
+    console.log(parent.getAttribute("id"))//box
+    //创建节点
+    let btn=document.createElement("BUTTON");
+    let t=document.createTextNode("CLICK ME");
+    btn.setAttribute("id","btn")
+    btn.appendChild(t);
+    document.body.appendChild(btn);
+    let btn1 = document.getElementsByTagName("button")[0]
+    console.log(btn===btn1)//true
+    console.log(typeof btn)//object
+
+    //创建元素
+    //write
+    let btn2 = document.querySelector("#btn2")
+    btn2.addEventListener('click',()=>{
+        document.write('<div>123</div>');
+    })//其他元素没了，页面重绘
+    //innerHTML
+    let inner = document.querySelector('.inner');
+    let arr = [];
+    for(let i = 0;i<=100;i++){
+        arr.push('<a href="#">百度</a><br>');
+    }
+    inner.innerHTML = arr.join('');
+</script>
+</body>
+</html>

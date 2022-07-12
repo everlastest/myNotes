@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //1.原型链继承
+    //实现方式：将子类的原型链指向父类的对象实例
+    console.log("原型链继承")
+    function Parent(){
+        this.name = "parent"
+        this.list = ['a']
+    }
+    Parent.prototype.sayHi = function (){
+        console.log('hi')
+    }
+    function Child(){
+    }
+    Child.prototype = new Parent();
+    console.log(Child.prototype.__proto__===Parent.prototype)//true
+    let child = new Child()
+    console.log(child.name)
+    child.sayHi()
+    //测试引用属性
+    let a = new Child();
+    let b = new Child();
+    a.list.push('b');
+    console.log(b.list===a.list); // true  解释:['a','b']
+
+    //2.构造函数继承
+    //实现方式：在子类构造函数中使用call或者apply劫持父类构造函数方法，并传入参数
+    console.log("构造函数继承")
+    function Animal(name,age){
+        this.name = name
+        this.age = age
+        this.list = ['a'];
+        this.printName = function(){
+            console.log(this.name)
+        }
+    }
+    Animal.prototype.sayName=function () {
+        console.log(this.name)
+    }
+    function Dog(name,id){
+        Animal.call(this,name,id)
+    }
+
+    let dog = new Dog('刘思远',10)
+    let dog1 = new Dog('刘思静',8)
+    dog.list = ['c']
+    console.log(dog.list === dog1.list) //false ['c']!==['a']
+    dog.printName()//刘思远
+    //dog.sayName()//Uncaught TypeError: dog.sayName is not a function
+
+    //3.组合继承
+    //原理：综合使用构造函数继承和原型链继承
+    console.log('组合继承')
+    function Dad(name, id){
+        this.id = id;
+        this.name = name;
+        this.list = ['a'];
+        this.printName = function(){
+            console.log(this.name);
+        }
+    }
+    Dad.prototype.sayName = function(){
+        console.log(this.name);
+    };
+    function Son(name, id){
+        Dad.call(this, name, id);
+        // Parent.apply(this, arguments);
+    }
+    Son.prototype = new Dad();
+    let son = new Son("jin", "1");
+    console.log(son)
+    console.log(son.__proto__)
+    son.printName(); // jin
+    son.sayName() // jin    //可以用父类原型上的方法
+
+    let son1 = new Son();
+    let son2 = new Son();
+    son1.list.push('b');
+    console.log(son1.list === son2.list); // false  ['a']!==['b']
+
+    //4.原型式继承
+    console.log('原型式继承')
+
+    let cat = {
+        names: ['a']
+    }
+    function copy(object) {
+        function F() {}
+        F.prototype = object;
+        return new F();
+    }
+    let cat1 = copy(cat);
+    console.log(cat1.__proto__)//cat
+    cat.name = ['b']
+    console.log(cat1.name)//['b']
+    //5.寄生式继承
+    function createObject(obj) {
+        let o = copy(obj);
+        o.getNames = function() {
+            console.log(this.names);
+            return this.names;
+        }
+        return o;
+    }
+    //6.寄生组合式继承
+    function inheritPrototype(subClass, superClass) {
+        // 复制一份父类的原型
+        let p = copy(superClass.prototype);
+        // 修正构造函数
+        p.constructor = subClass;
+        // 设置子类原型
+        subClass.prototype = p;
+    }
+
+    function Parent1(name, id){
+        this.id = id;
+        this.name = name;
+        this.list = ['a'];
+        this.printName = function(){
+            console.log(this.name);
+        }
+    }
+    Parent1.prototype.sayName = function(){
+        console.log(this.name);
+    };
+    function Child1(name, id){
+        Parent1.call(this, name, id);
+        // Parent.apply(this, arguments);
+    }
+    inheritPrototype(Child1, Parent1);
+</script>
+</body>
+</html>

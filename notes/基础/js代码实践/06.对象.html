@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //创建和销毁-----------------------------------------------------------
+    //对象声明-------------------------------------------
+    var obj = new Object;
+    obj = {name: 'zs'}
+    console.log(obj)
+    //销毁
+    obj = null
+    console.log(obj)
+    //class类-----ES6--------------------------------------
+    class Car {  // 创建类
+        constructor(brand) {  // 类构造方法
+            this.carname = brand;  // 类主体、属性
+        }
+    }
+
+    mycar = new Car("Ford");  // 创建 Car 类的对象
+    console.log(mycar)
+
+    //工厂方式--------------------------------------
+    function createCar(color, door, mpg) {
+        var oTempCar = new Object;
+        oTempCar.color = color;
+        oTempCar.doors = door;
+        oTempCar.mpg = mpg;
+        oTempCar.showColor = function () {
+            alert(this.color);
+        };
+        return oTempCar;
+    }
+
+    var oCar1 = createCar('red', 4, 23);
+    var oCar2 = createCar('blue', 4, 2);
+    console.log(oCar1);
+    console.log(oCar2);
+
+    //构造函数-----------------------------------------
+    function nCar(sColor, iDoors, iMpg) {
+        this.color = sColor;
+        this.doors = iDoors;
+        this.mpg = iMpg;
+        this.showColor = function () {
+            alert(this.color);
+        };
+    }
+
+    var oCar1 = new nCar("red", 4, 23);
+    var oCar2 = new nCar("blue", 3, 25);
+    nCar.prototype.link = function () {
+        return this.color + this.doors
+    }
+    console.log(oCar1.link())//red4
+
+
+
+
+
+    //对象Api--------------------------------------------------------
+    //----------assign---后边的拷贝个前边的----------------------------
+    var obj1 = {name: 'zs', age: 20}
+    var obj2 = {sex: 'male', love: 'ls'}
+    Object.assign(obj1, obj2)//
+    console.log(obj1)
+
+
+    //----------Object.definedProperty(obj, prop, descriptor)-----
+    //基本语法: Object.defineProperty(obj, prop, descriptor)
+    //参数(obj): 被操作的对象本身
+    //参数(prop): 属性名称, 指定对象要修改或者新增的属性名
+    //参数(descriptor): 对属性的描述(如 value指定属性的值)
+    var person = {}
+    Object.defineProperty(person,'name',{value:'德华'})
+    person.name = '吕布'
+    console.log(person)//德华
+    var person = {}
+    Object.defineProperty(person,'name',{value:'德华',writable:true})
+    person.name = '吕布'
+    console.log(person)//吕布
+
+    //-----------Object.create(proto，[propertiesObject]): -----------
+    //用于创建一个新的对象
+    //proto: 新创建对象的原型对象
+    //propertiesObject: 可选 定义该对象属性的值 以及 是否可被枚举 修改 删除等(详情可参照 definedProperty文章中的第三个参数)
+    var objN = {name:"zs"}
+    var obj = Object.create(objN)
+    console.log(obj.__proto__)
+    delete obj.name
+    console.log(obj.name)
+
+    //https://www.w3school.com.cn/js/js_object_es5.asp
+    /*管理对象
+    // 以现有对象为原型创建对象
+    Object.create()
+
+    // 添加或更改对象属性
+    Object.defineProperty(object, property, descriptor)
+
+    // 添加或更改对象属性
+    Object.defineProperties(object, descriptors)
+
+    // 访问属性
+    Object.getOwnPropertyDescriptor(object, property)
+
+    // 以数组返回所有属性
+    Object.getOwnPropertyNames(object)
+
+    // 访问原型
+    Object.getPrototypeOf(object)
+
+    // 以数组返回可枚举属性
+    Object.keys(object)
+    */
+    /*保护对象
+    // 防止向对象添加属性
+    Object.preventExtensions(object)
+
+    // 如果属性可以添加到对象，则返回 true
+    Object.isExtensible(object)
+
+    // 防止更改对象属性（不是值）
+    Object.seal(object)
+
+    // 如果对象被密封，则返回 true
+    Object.isSealed(object)
+
+    // 防止对对象进行任何更改
+    Object.freeze(object)
+
+    // 如果对象被冻结，则返回 true
+    Object.isFrozen(object)
+     */
+
+</script>
+</body>
+</html>

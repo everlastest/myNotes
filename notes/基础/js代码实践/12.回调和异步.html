@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // "I will call back later!"
+    // 回调 (callback) 是作为参数传递给另一个函数的函数
+    // 这种技术允许函数调用另一个函数
+    // 回调函数可以在另一个函数完成后运行
+
+    //例1 无法保证顺序
+    function myFirst() {
+        console.log("hello")
+    }
+    function mySecond() {
+        console.log("goodbye")
+    }
+    myFirst();
+    mySecond();
+    //例2 保证顺序
+    function fn(n1,n2,callback){
+        let sum =n1 + n2;
+        callback(sum)
+    }
+    function callback(sum){
+        console.log(sum*2)
+    }
+    fn(1,2,callback)
+    // "I will finish later!"
+    // 与其他函数并行运行的函数称为异步（asynchronous）
+    // 一个很好的例子是 JavaScript setTimeout()
+    let myPromise = new Promise(function(Resolve, Reject) {
+        console.log("do you love me?")
+        setTimeout(()=>Resolve("I love You !!"), 3000)
+    })
+    myPromise.then((res)=>{console.log(res)})
+    console.log("give you 3 min.")
+
+    //async和await
+    //函数前的关键字 async 使函数返回 promise
+    async function my(){
+        console.log("who are you?")
+        return "I'am Ironman"
+    }
+    my().then(
+        function (value){console.log(value)},
+        function (reject){"error"}
+    )
+    //函数前的关键字 await 使函数等待 promise：
+    async function myDisplay() {
+        let myPromise = new Promise(function(myResolve, myReject) {
+            myResolve("I love You,才怪 !!");
+        });
+        var ans = await myPromise;
+    }
+
+    console.log(myDisplay());
+</script>
+</body>
+</html>
