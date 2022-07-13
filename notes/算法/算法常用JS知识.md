@@ -62,3 +62,41 @@ let isEmpty = queue.length===0
     console.log(sumWithInitial);
     // expected output: 10
     ```
+## 4 字符串操作
+1. 生成字符数组
+
+```js
+let str = "hello world"
+const arr1 = str.split("") //'h','e','l','l','o',' ','w','o','r','l','d'
+const arr2 = str.split(" ") // 'hello','world'
+```
+## 5 Map
+```js
+const map = new Map()
+// 添加元素
+map.put('我','小黑')
+// 删除元素
+map.delete('我')
+// 查找是否存在某元素
+map.has('我')
+// 查找某个key对应的value
+map.get('我')
+// map的大小
+map.size()
+// 清空
+map.clear()
+```
+## 6 set
+```js
+const set = new Map()
+// 添加元素
+set.add('我')
+// 删除元素
+set.delete('我')
+// 查找是否存在某元素
+set.has('我')
+// map的大小
+set.size()
+// 清空
+set.clear()
+```
