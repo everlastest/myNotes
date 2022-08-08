@@ -37,7 +37,7 @@ let isEmpty = queue.length===0
     })
     ```
 2. map
-    
+   
     - 创建一个新的数组，其中每一个元素由调用数组中的每一个元素执行提供的函数得来
     ```javascript
     const arr = ['1','2','3']
@@ -45,7 +45,7 @@ let isEmpty = queue.length===0
     let newArr = arr.map(x => x * 2)
     ```
 3. reduce
- 
+
     - 计算迭代的值
 
     ```javascript
@@ -70,7 +70,28 @@ let str = "hello world"
 const arr1 = str.split("") //'h','e','l','l','o',' ','w','o','r','l','d'
 const arr2 = str.split(" ") // 'hello','world'
 ```
+2. 字符串切割
+
+```js
+let str = "hello world"
+// substring 操作字符串
+// 	参数一：起始（包括）
+// 	参数二：结尾（不包括）
+const str1 = str.substring(0,5) //"hello"
+// substr 操作字符串
+// 	参数一：起始（包括）
+// 	参数二：长度
+const str2 = str.substr(0,5) //"hello"
+// slice 操作字符串和数组
+// 	参数一：起始（包括）
+// 	参数二：结尾（不包括）
+const str2 = str.slice(0,5) //"hello"
+```
+
+
+
 ## 5 Map
+
 ```js
 const map = new Map()
 // 添加元素
@@ -100,3 +121,11 @@ set.size()
 // 清空
 set.clear()
 ```
+
+## 7 数组初始化
+
+```js
+// length为数组长度，fill的三个参数分别为初始化的值、起始坐标、终止坐标（不包括）
+const arr = new Array(length).fill(true,0,length);
+```
+
