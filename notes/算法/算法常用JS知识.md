@@ -129,3 +129,17 @@ set.clear()
 const arr = new Array(length).fill(true,0,length);
 ```
 
+## 8 数组排序
+
+> 注意：数组排序默认转成字符串，因此要加条件才能进行正确的数字排序
+
+```js
+// array.sort()
+const arr = [-1, 2, -3, 1];
+//compare函数中返回值>0代表更换位置
+arr.sort((a, b) => a - b);//从小到大[-3,-1,1,2]
+arr.sort((a, b) => b - a);//从大到小[2,1,-1,-3]
+const arr1 = ['a','c','b'];
+arr.sort();//['a','b','c']
+```
+
