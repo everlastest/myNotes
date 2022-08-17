@@ -14,19 +14,19 @@ Backends for Frontends, BFF是一层nodejs，作为中间层能够进行请求�
 
 因此在设计之初就是有业务针对性，高耦合决定其无法再给其他系统 复用。
 
-<img src="/Users/bytedance/note/myNotes/notes/assets/image-20220817180155000.png" alt="image-20220817180155000" style="zoom:50%;" />
+<img src="./assets/image-20220817180155000.png" alt="image-20220817180155000" style="zoom:50%;" />
 
 ### 多端直接调用
 
 例如双端应用中，都需要调用接口，而不同终端对于数据的需求不相同，因此接口的复用度低，接口数量多
 
-<img src="/Users/bytedance/note/myNotes/notes/assets/image-20220817180144039.png" alt="image-20220817180144039" style="zoom:50%;" />
+<img src="./assets/image-20220817180144039.png" alt="image-20220817180144039" style="zoom:50%;" />
 
 ### 各端提供各自BFF
 
 为每个终端都提供各自的bff层，这样对应的bff可以从基础服务接口获取数据，再根据自身的诉求出发，封装自身的业务逻辑，互不干预。
 
-![image-20220817180126778](/Users/bytedance/note/myNotes/notes/assets/image-20220817180126778.png)
+![image-20220817180126778](./assets/image-20220817180126778.png)
 
 ## 优缺点
 

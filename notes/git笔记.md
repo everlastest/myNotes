@@ -16,15 +16,15 @@ https://learngitbranching.js.org/?locale=zh_CN 😊
 
 vscode + git graph
 
-![image-20220817153703104](/Users/bytedance/note/myNotes/notes/assets/image-20220817153703104.png) 
+![image-20220817153703104](./assets/image-20220817153703104.png) 
 
 在vscode扩展工具中下载Git Graph
 
-![image-20220817153721232](/Users/bytedance/note/myNotes/notes/assets/image-20220817153721232.png)
+![image-20220817153721232](./assets/image-20220817153721232.png)
 
 至此就可以实现Git的可视化操作
 
-![image-20220817153805349](/Users/bytedance/note/myNotes/notes/assets/image-20220817153805349.png)
+![image-20220817153805349](./assets/image-20220817153805349.png)
 
 # 配置攻略
 
@@ -79,10 +79,10 @@ cat ~/.ssh/id_rsa.pub
 > 注意一点，我们只能在本地看到自己的本地分支和所有的远程分支，远程分支带有 **origin/** 前缀
 
 1. 远程和本地同步
-   1. ![image-20220817154220788](/Users/bytedance/note/myNotes/notes/assets/image-20220817154220788.png) 
+   1. ![image-20220817154220788](./assets/image-20220817154220788.png) 
 
 1. 远程和本地不同步
-   1. ![image-20220817154238867](/Users/bytedance/note/myNotes/notes/assets/image-20220817154238867.png)
+   1. ![image-20220817154238867](./assets/image-20220817154238867.png)
 
 #### 实际操作 
 
@@ -102,11 +102,11 @@ git clone git@xxx.git
 
 快捷键 `cmd+shift+n` 可以在已有的vscode窗口中重新打开一个新的窗口
 
-![image-20220817154253627](/Users/bytedance/note/myNotes/notes/assets/image-20220817154253627.png)
+![image-20220817154253627](./assets/image-20220817154253627.png)
 
 在新的窗口点击克隆git仓库，输入复制过来的ssh
 
-![image-20220817154306952](/Users/bytedance/note/myNotes/notes/assets/image-20220817154306952.png)
+![image-20220817154306952](./assets/image-20220817154306952.png)
 
 选择要存放的文件夹位置
 
@@ -121,15 +121,15 @@ git clone git@xxx.git
 当我们拿到代码接手一个全新的需求时，需要在本地滴创建的自己的分支，在写代码过程中将自己的分支同步到远程对应的分支，最后完成需求后，将自己的分支汇入主分支。
 
 - master分支是主分支，即带边着最终上线的代码
-  - ![image-20220817154317717](/Users/bytedance/note/myNotes/notes/assets/image-20220817154317717.png)
+  - ![image-20220817154317717](./assets/image-20220817154317717.png)
 
 如下图所示，每条线代表不同的分支
 
-![image-20220817154337980](/Users/bytedance/note/myNotes/notes/assets/image-20220817154337980.png)
+![image-20220817154337980](./assets/image-20220817154337980.png)
 
 远程分支以`origin`开头，我们可以看到所有的远程分支
 
-![image-20220817154356491](/Users/bytedance/note/myNotes/notes/assets/image-20220817154356491.png)
+![image-20220817154356491](./assets/image-20220817154356491.png)
 
 #### 实际操作
 
@@ -153,11 +153,11 @@ git checkout mybranch
 
 右击要复制的分支所在的行，点击Create Branch...
 
-![image-20220817154415568](/Users/bytedance/note/myNotes/notes/assets/image-20220817154415568.png)
+![image-20220817154415568](./assets/image-20220817154415568.png)
 
 输入对应的名称，下面的checkout代表着切换到创建后立刻切换到此新分支
 
-![image-20220817154425688](/Users/bytedance/note/myNotes/notes/assets/image-20220817154425688.png)
+![image-20220817154425688](./assets/image-20220817154425688.png)
 
 此时就完成了本地分支的创建！
 
@@ -165,7 +165,7 @@ git checkout mybranch
 
 在这里点击发布分支即可
 
-![image-20220817154436645](/Users/bytedance/note/myNotes/notes/assets/image-20220817154436645.png)
+![image-20220817154436645](./assets/image-20220817154436645.png)
 
 现在就可以放心大胆的在自己的分支上开发啦💛
 
@@ -183,7 +183,7 @@ git checkout mybranch
 
 - 此时如下图显示有几个文件发送更改
 
-- - ![image-20220817154449839](/Users/bytedance/note/myNotes/notes/assets/image-20220817154449839.png)
+- - ![image-20220817154449839](./assets/image-20220817154449839.png)
 
 1. 暂存区
 
@@ -193,7 +193,7 @@ git checkout mybranch
 
 - 点击文件本身可以查看更改的对比
 
-- - ![image-20220817154500254](/Users/bytedance/note/myNotes/notes/assets/image-20220817154500254.png)
+- - ![image-20220817154500254](./assets/image-20220817154500254.png)
 
 当然也可以通过`git add .`命令将工作区的更改添加到暂存区
 
@@ -233,11 +233,11 @@ git commit --amend
 
 在Git Graph中想要撤回到的目的状态上点击右键
 
-![image-20220817154517288](/Users/bytedance/note/myNotes/notes/assets/image-20220817154517288.png)
+![image-20220817154517288](./assets/image-20220817154517288.png)
 
 选择Reset current branch on this Commit...
 
-![image-20220817154527185](/Users/bytedance/note/myNotes/notes/assets/image-20220817154527185.png)
+![image-20220817154527185](./assets/image-20220817154527185.png)
 
 选择Hard即可无痕回退到想要的地方
 
@@ -248,13 +248,13 @@ git commit --amend
 ##### 如何squash
 
 1. 方法一：使用Git Graph
-   1. ![image-20220817154548250](/Users/bytedance/note/myNotes/notes/assets/image-20220817154548250.png)
+   1. ![image-20220817154548250](./assets/image-20220817154548250.png)
 
    2. 在要合并的所有commit的前一个commit上点击右键
    3. 点击 Rebase current branch on this Commit...
-      1. ![image-20220817154602369](/Users/bytedance/note/myNotes/notes/assets/image-20220817154602369.png)
+      1. ![image-20220817154602369](./assets/image-20220817154602369.png)
    4. 勾选 Lauch Interactive Rebase in new Terminal
-      1. ![image-20220817154621980](/Users/bytedance/note/myNotes/notes/assets/image-20220817154621980.png)
+      1. ![image-20220817154621980](./assets/image-20220817154621980.png)
    5. 在终端修改相应内容
 
 1. 方法二：命令行
@@ -305,11 +305,11 @@ remove .class files
 
 正常情况下，我们本地的分支都是领先远程的分支的
 
-![image-20220817154645321](/Users/bytedance/note/myNotes/notes/assets/image-20220817154645321.png)
+![image-20220817154645321](./assets/image-20220817154645321.png)
 
 ##### 方法一：图形化操作
 
-![image-20220817154655621](/Users/bytedance/note/myNotes/notes/assets/image-20220817154655621.png)
+![image-20220817154655621](./assets/image-20220817154655621.png)
 
 ##### 方法二：命令行
 
@@ -321,7 +321,7 @@ git push
 
 由于某种原因（大概率是rebase ）远程分支和本地分支不在同一条路线上了，我们又想以本地的分支为主
 
-![image-20220817154716491](/Users/bytedance/note/myNotes/notes/assets/image-20220817154716491.png)
+![image-20220817154716491](./assets/image-20220817154716491.png)
 
 此时只需要用本地分支强制覆盖远程分支
 
@@ -329,13 +329,13 @@ git push
 git push -f
 ```
 
-![image-20220817154737788](/Users/bytedance/note/myNotes/notes/assets/image-20220817154737788.png)
+![image-20220817154737788](./assets/image-20220817154737788.png)
 
 ## 5 在和主分支前完成变基（重点☄️）
 
 当我们完成本地的开发，想要合入主分支时，发现主分支早已不是原先那个主分支
 
-![image-20220817154752812](/Users/bytedance/note/myNotes/notes/assets/image-20220817154752812.png)
+![image-20220817154752812](./assets/image-20220817154752812.png)
 
 因此我们需要在本地完成变基操作并解决可能产生的冲突
 
@@ -372,21 +372,21 @@ $ git push -f(推向远端)
 
 双击master分支
 
-<img src="/Users/bytedance/note/myNotes/notes/assets/image-20220817154805433.png" alt="image-20220817154805433" style="zoom:67%;" />
+<img src="./assets/image-20220817154805433.png" alt="image-20220817154805433" style="zoom:67%;" />
 
 点击同步更改
 
 > 注意下箭头是pull，上箭头是push，对master分支一定只能有下箭头
 
-![image-20220817154820328](/Users/bytedance/note/myNotes/notes/assets/image-20220817154820328.png)
+![image-20220817154820328](./assets/image-20220817154820328.png)
 
 双击我的分支
 
-![image-20220817154833381](/Users/bytedance/note/myNotes/notes/assets/image-20220817154833381.png)
+![image-20220817154833381](./assets/image-20220817154833381.png)
 
 此时右击master分支，点击Rebase current branch on this Commit...
 
-![image-20220817154848419](/Users/bytedance/note/myNotes/notes/assets/image-20220817154848419.png)
+![image-20220817154848419](./assets/image-20220817154848419.png)
 
  这次**不能**选Lanch Interactive Rebase in new Terminal
 
@@ -394,7 +394,7 @@ $ git push -f(推向远端)
 
 解决冲突后可以看到，此时本地分支已经和master在同一条线（同基）上了。
 
-![image-20220817154901702](/Users/bytedance/note/myNotes/notes/assets/image-20220817154901702.png)
+![image-20220817154901702](./assets/image-20220817154901702.png)
 
 之后git push -f即可
 
