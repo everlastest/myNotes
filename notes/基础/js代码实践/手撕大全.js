@@ -186,3 +186,154 @@ obj.constructor = Chinese
 Chinese.prototype.getAge = function(){
     return this.age
 }
+/** Promise.all */
+Promise._all = function(iterators) {
+    const arr = Array.from(iterators);
+    // 保存返回值
+    let result = [];
+    // 记录执行个数
+    let index = 0;
+    return new Promise((resolve,reject)=>{
+        function addData(index,value) {
+            result[index] = value;
+            index++;
+            // 只有当执行完成后才可以返回
+            if(index === arr.length){
+                resolve(result);
+            }
+        }
+        for(let i=0;i<arr.length;i++){
+            let cur = arr[i];
+            if(cur instanceof Promise){
+                cur.then(res => addData(i,res))
+                    .catch(err => reject(err))
+            }else {
+                addData(i,cur);
+            }
+        }
+    })
+}
+/** Promise.race */
+Promise._race = function(iterators) {
+    const arr = Array.from(iterators);
+    return new Promise((resolve,reject)=>{
+        for(let i=0;i<arr.length;i++){
+            let cur = arr[i];
+            if(cur instanceof Promise){
+                return cur.then(res=>resolve(res))
+                        .catch(err=>reject(err))
+            }else {
+                resolve(cur);
+            }
+        }
+    })
+}
+/** Promise.prototype.finally */
+Promise.prototype._finally = function(callback) {
+    return this.then(
+        res => Promise.resolve(callback()).then(()=>res),
+        err => Promise.resolve(callback()).then(()=>{
+            throw err;
+        })
+    )
+}
+/** Promise.any */
+Promise._any = function(iterators) {
+    const arr = Array.from(iterators);
+    const rejectList = [];
+    let index = 0;
+    return new Promise((resolve,reject)=>{
+        for(let i=0;i<arr.length;i++){
+            const cur = arr[i];
+            if(cur instanceof Promise){
+                cur.then((res)=>{
+                    resolve(res);
+                }).catch((err)=>{
+                    index++;
+                    rejectList[i] = err;
+                    if(index===arr.length){
+                        reject(rejectList);
+                    }
+                })
+            }else {
+                resolve(cur);
+            }
+        }
+    })
+}
+/** Promise.allSettled */
+Promise._allSettled = function(iterators) {
+    const arr = Array.from(iterators);
+    const result = [];
+    const index = 0;
+    function getResult(success,val) {
+        return success?{status:"fulfilled",value:val}:{status:"rejected",reason:val}
+    }
+    return new Promise((resolve,reject)=>{
+        for(let i=0;i<arr.length;i++){
+            let cur = arr[i];
+            if(cur instanceof Promise){
+                cur.then((value)=>{
+                    result[i] = getResult(true,value);
+                    index++;
+                    if(index===arr.length){
+                        resolve(result);
+                    }
+                }).catch((err)=>{
+                    result[i] = getResult(false,err);
+                    index++;
+                    if(index===arr.length){
+                        resolve(result);
+                    }
+                })
+            }else {
+                result[i] = getResult(true,cur);
+                index++;
+                if(index===arr.length){
+                    resolve(result);
+                }
+            }
+        }
+    })
+}
+/** 防抖 */
+function debounce(callback,time,immediate) {
+    let timer = null;
+    return function() {
+        let that = this
+        if(immediate){
+            if(!timer){
+                callback(Array.from(arguments));
+            }else {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(()=>{
+                clearTimeout(timer);
+            },time)
+        }else{
+            if(timer) clearTimeout(timer)
+            timer = setTimeout(()=>{
+                callback.apply(that,Array.from(arguments));
+            },time)
+        }
+    }
+}
+/** 节流 */
+function throttle(callback,time,immediate){
+    let timer = null
+    return function(){
+        const that = this
+        if(timer) return
+        if(immediate){
+            callback.apply(that,Array.from(arguments));
+            timer = setTimeout(()=>{
+                clearTimeout(timer)
+            },time)
+        }else{
+            timer = setTimeout(()=>{
+                callback.apply(that,Array.from(arguments));
+                clearTimeout(timer)
+            })
+        }
+    }
+}

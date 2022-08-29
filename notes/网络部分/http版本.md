@@ -27,7 +27,7 @@ HTTP 0.9具有典型的**无状态性**，每个事务独立进行处理，事�
 
   在HTTP1.0中使用长连接需要添加请求头 Connection: Keep-Alive，而在HTTP 1.1 所有的连接默认都是**长连接**，除非特殊声明不支持（ HTTP请求报文首部加上Connection: close ）。服务器端按照FIFO原则来处理不同的Request。
 
-  ![image-20220322181358668](./../assets//image-20220322181358668.png)
+  ![image-20220322181358668](./../assets/image-20220322181358668.png)
 
 - chunked编码传输
 
