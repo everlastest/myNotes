@@ -64,6 +64,9 @@ useEffect(didUpdate);
 
 **useLayoutEffect**和useEffect功能很像，但两者执行时机不同
 
+- `useEffect` 是异步执行的，而`useLayoutEffect`是同步执行的。
+- `useEffect` 的执行时机是浏览器完成渲染之后，而 `useLayoutEffect` 的执行时机是浏览器把内容真正渲染到界面之前，和 `componentDidMount` 等价。
+
 ```JavaScript
 import React, { useEffect, useState } from "react";
 

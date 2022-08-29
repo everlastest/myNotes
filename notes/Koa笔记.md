@@ -63,10 +63,12 @@ const Koa = require('koa')
 const app = new Koa()
 // 三. 编写中间件
 app.use((ctx, next) => {
-  console.log('我来组成身体')next()
+  console.log('我来组成身体')
+  next()
 })
 app.use((ctx, next) => {
-  console.log('我来组成头部')next()
+  console.log('我来组成头部')
+  next()
 })
 app.use((ctx) => {
   console.log('---------')
