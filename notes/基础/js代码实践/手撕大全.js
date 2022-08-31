@@ -142,6 +142,7 @@ class Observer {
         console.log(observed.name+'正在'+observed.state)
     }
 }
+
 /** 发布订阅模式 */
 class EventEmitter {
     constructor() {
